@@ -54,7 +54,7 @@ function FILES_CREATION(){
 		devname='"'$author'"';
 		echo "__uri__ = $devname" >> $INIT_FILE;
 		read -p "Author Email: -> " email;
-		email_address='"'$emai'"';
+		email_address='"'$email'"';
 		echo "__email__ = $email_address" >> $INIT_FILE;
 		read -p "Licence Under: -> " license;
 		if [[ -z "$license" ]]; then
