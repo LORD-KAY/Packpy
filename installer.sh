@@ -6,12 +6,10 @@ HOSTNAME=`hostname`;
 read -p "Enter Your Package Name: -> " package;
 package_name=$package;
 # Creating the package folder
-if [[ $package_name ==  ' ' ]]; then
-	
+if [[ -z "$package_name" ]]; then
+	# Get the current working directory name
+	current_folder=${PWD##*/};
+	echo $current_folder;
 fi
-sleep 2
-mkdir $package_name;
-chmod 777 $package_name;
 
-read -p ""
 
