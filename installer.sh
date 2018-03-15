@@ -13,26 +13,40 @@ if [[ -z "$package_name" ]]; then
 	sleep 2
 	mkdir $current_folder;
 	chmod 777 $current_folder;
-	cd $current_folder;
+	cd $current_folder && touch $INIT_FILE;
+	chmod 777 $INIT_FILE;
+
+	sleep 4
+	# Create the package folder and the its file using the same package folder name
+	mkdir $current_folder;
+	cd $current_folder && touch "$current_folder.py";
+	chmod "$current_folder.py";
+
+	read -p "Package Version (v1.0.0) : -> " version;
+	version_number=$version;
+	if [[ -z "$version_number" ]]; then
+		version_number="v1.0.0";
+		# Writing to the init file
+		file_header="#!/bin/env/python";
+		imports="from __future__ import absolute_import,division, print_function";
+		all_configs='
+		__all__ = (
+    "__title__", "__summary__", "__uri__", "__version__", "__author__",
+    "__email__", "__license__", "__copyright__",
+	)';
+		echo "$file_header" >> $INIT_FILE;
+		echo "$imports" >> $INIT_FILE;
+		echo "$all_configs" >> $INIT_FILE;
+	else
+		version=$version_number;
+	fi
+
 else
+	# When Variables are not empty
 	sleep 2
 	mkdir $package_name;
 	chmod 777 $package_name;
 	cd $current_folder;
-fi
-
-read -p "Package Version (v1.0.0) : -> " version;
-version_number=$version;
-if [[ -z "$version_number" ]]; then
-	version_number="v1.0.0";
-
-	# Writing to the init file
-	# header="
-	# from __future__ import absolute_import,division, print_function
-	# ";
-	# echo "$header" > $INIT_FILE;
-else
-	version=$version_number;
 fi
 
 
