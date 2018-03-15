@@ -12,20 +12,17 @@ TESTFOLDER="test";
 # Begining the installer by processing using user argument - Package Name
 read -p "Enter Your Package Name: -> " package;
 package_name=$package;
-# Creating the package folder
-if [[ -z "$package_name" ]]; then
-	# Get the current working directory name
-	current_folder=${PWD##*/};
+
+# Creating the mother functions
+function BASEFOLDER_CREATION(){
 	sleep 2
 	mkdir $current_folder;
 	chmod 777 $current_folder;
 	cd $current_folder && touch $INIT_FILE;
 	chmod 777 $INIT_FILE;
+}
 
-	read -p "Package Version (v1.0.0) : -> " version;
-	version_number=$version;
-	if [[ -z "$version_number" ]]; then
-		version_number="v1.0.0";
+function FILES_CREATION(){
 		# Writing to the init file
 		file_header="#!/bin/env/python";
 		imports="from __future__ import absolute_import,division, print_function";
@@ -39,7 +36,7 @@ if [[ -z "$package_name" ]]; then
 		echo "$all_configs" >> $INIT_FILE;
 
 		# Writing other information to the init file
-		title="$current_folder";
+		title='"'$current_folder'"';
 		echo " " >> $INIT_FILE;
 		echo "__title__ = $title" >> $INIT_FILE;
 		read -p "Package Summary :-> " summary;
@@ -61,7 +58,7 @@ if [[ -z "$package_name" ]]; then
 		echo "__email__ = $email" >> $INIT_FILE;
 		read -p "Licence Under: -> " license;
 		if [[ -z "$license" ]]; then
-			license="MIT";
+			license='"MIT"';
 			echo " " >> $INIT_FILE;
 			echo "__license__ = $license" >> $INIT_FILE;
 			echo " " >> $INIT_FILE;
@@ -82,16 +79,36 @@ if [[ -z "$package_name" ]]; then
 		mkdir $current_folder;
 		cd $current_folder && touch "$current_folder.py";
 		chmod 755 "$current_folder.py";
+}
+# Creating the package folder
+if [[ -z "$package_name" ]]; then
+	# Get the current working directory name
+	current_folder=${PWD##*/};
+	#Calling the method
+	BASEFOLDER_CREATION
+	read -p "Package Version (v1.0.0) : -> " version;
+	version_number=$version;
+	if [[ -z "$version_number" ]]; then
+		version_number='"v1.0.0"';
+		FILES_CREATION
 	else
-		version=$version_number;
+		version_number=$version_number;
+		FILES_CREATION
 	fi
 
 else
 	# When Variables are not empty
-	sleep 2
-	mkdir $package_name;
-	chmod 777 $package_name;
-	cd $current_folder;
+	current_folder=$package_name;
+	BASEFOLDER_CREATION
+	read -p "Package Version (v1.0.0) : -> " version;
+	version_number=$version;
+	if [[ -z "$version_number" ]]; then
+		version_number='"v1.0.0"';
+		FILES_CREATION
+	else
+		version_number=$version_number;
+		FILES_CREATION
+	fi
 fi
 
 
