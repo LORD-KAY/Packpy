@@ -55,7 +55,7 @@ function FILES_CREATION(){
 		echo "__uri__ = $devname" >> $INIT_FILE;
 		read -p "Author Email: -> " email;
 		email_address='"'$emai'"';
-		echo "__email__ = $email" >> $INIT_FILE;
+		echo "__email__ = $email_address" >> $INIT_FILE;
 		read -p "Licence Under: -> " license;
 		if [[ -z "$license" ]]; then
 			license='"MIT"';
@@ -107,7 +107,7 @@ else
 		version_number='"v1.0.0"';
 		FILES_CREATION
 	else
-		version_number=$version_number;
+		version_number='"'$version_number'"';
 		FILES_CREATION
 	fi
 fi
