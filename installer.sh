@@ -2,6 +2,12 @@
 APPNAME="Packpy v1.0.0";
 HOSTNAME=`hostname`;
 INIT_FILE="__init__.py";
+MANIFEST="MANIFEST";
+SETUP="setup.py";
+SETUPCFG="setup.cfg";
+
+# Other folders
+TESTFOLDER="test";
 
 # Begining the installer by processing using user argument - Package Name
 read -p "Enter Your Package Name: -> " package;
@@ -15,12 +21,6 @@ if [[ -z "$package_name" ]]; then
 	chmod 777 $current_folder;
 	cd $current_folder && touch $INIT_FILE;
 	chmod 777 $INIT_FILE;
-
-	sleep 4
-	# Create the package folder and the its file using the same package folder name
-	mkdir $current_folder;
-	cd $current_folder && touch "$current_folder.py";
-	chmod "$current_folder.py";
 
 	read -p "Package Version (v1.0.0) : -> " version;
 	version_number=$version;
@@ -37,6 +37,17 @@ if [[ -z "$package_name" ]]; then
 		echo "$file_header" >> $INIT_FILE;
 		echo "$imports" >> $INIT_FILE;
 		echo "$all_configs" >> $INIT_FILE;
+	
+		# CREATING OTHER NECCESSARY FILES
+		touch $MANIFEST && chmod 755 $MANIFEST;
+		touch $SETUP && chmod 755 $SETUP;
+		touch $SETUPCFG && chmod 755 $SETUPCFG;
+
+		sleep 4
+		# Create the package folder and the its file using the same package folder name
+		mkdir $current_folder;
+		cd $current_folder && touch "$current_folder.py";
+		chmod "$current_folder.py";
 	else
 		version=$version_number;
 	fi
