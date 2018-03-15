@@ -40,10 +40,10 @@ function FILES_CREATION(){
 		echo " " >> $INIT_FILE;
 		echo "__title__ = $title" >> $INIT_FILE;
 		read -p "Package Summary :-> " summary;
-		summary_data=$summary;
+		summary_data='"'$summary'"';
 		echo "__summary__ = $summary_data" >> $INIT_FILE;
 		read -p "Package URI (Mostly github repository): -> " uri;
-		url=$uri;
+		url='"'$uri'"';
 		echo "__uri__ = $url" >> $INIT_FILE;
 		# DEFINING AN EMPTY SPACE ABOVE
 		echo " " >> $INIT_FILE;
@@ -51,10 +51,10 @@ function FILES_CREATION(){
 		echo " " >> $INIT_FILE;
 
 		read -p "Package Author: -> " author;
-		devname=$author;
+		devname='"'$author'"';
 		echo "__uri__ = $devname" >> $INIT_FILE;
 		read -p "Author Email: -> " email;
-		email_address=$emai;
+		email_address='"'$emai'"';
 		echo "__email__ = $email" >> $INIT_FILE;
 		read -p "Licence Under: -> " license;
 		if [[ -z "$license" ]]; then
@@ -63,6 +63,7 @@ function FILES_CREATION(){
 			echo "__license__ = $license" >> $INIT_FILE;
 			echo " " >> $INIT_FILE;
 		else
+			license='"'$license'"';
 			echo " " >> $INIT_FILE;
 			echo "__license__ = $license" >> $INIT_FILE;
 			echo " " >> $INIT_FILE;
